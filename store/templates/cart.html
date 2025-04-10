@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'store/styles.css' %}">
+    <style>
+        body {
+            background: linear-gradient(to right, #fddb92, #d1fdff);
+            min-height: 100vh;
+        }
+        .card {
+            border-radius: 15px;
+            border: none;
+        }
+        .list-group-item {
+            border: none;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .list-group-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="card shadow-lg p-4">
+                <h2 class="text-center mb-4 text-primary">🛒 Your Shopping Cart</h2>
+
+                {% if cart_books %}
+                    <ul class="list-group mb-3">
+                        {% for book in cart_books %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center bg-light">
+                                <div>
+                                    <h6 class="mb-0">{{ book.title }}</h6>
+                                    <small class="text-muted">by {{ book.author }}</small>
+                                </div>
+                                <span class="text-success fw-bold">${{ book.price }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="text-center">
+                        <a href="{% url 'book_list' %}" class="btn btn-outline-primary">📚 Continue Shopping</a>
+                    </div>
+                {% else %}
+                    <p class="text-center text-muted">Your cart is currently empty.</p>
+                    <div class="text-center mt-4">
+                        <a href="{% url 'book_list' %}" class="btn btn-primary">Browse Books</a>
+                    </div>
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
